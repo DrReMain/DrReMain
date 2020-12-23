@@ -1,18 +1,18 @@
 module.exports = {
   title: 'DrReMain',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  tagline: 'Adversity makes a man wise, not rich.',
+  url: 'https://drremain.cn',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'drremain', // Usually your GitHub org/user name.
+  projectName: 'DrReMain', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'DrReMain',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'drremain',
         src: 'img/logo.svg',
       },
       items: [
@@ -24,7 +24,7 @@ module.exports = {
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/DrReMain',
           label: 'GitHub',
           position: 'right',
         },
@@ -34,50 +34,20 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: '社区',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/',
+              label: '掘金',
+              href: 'https://juejin.cn/user/2858385962182077',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              label: 'stackoverflow',
+              href: 'https://stackoverflow.com/users/12681046/dr-remain',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} DrReMain.`,
     },
   },
   presets: [
