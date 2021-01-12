@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'DrReMain',
+  title: 'DrReMain\'s Lab',
   tagline: 'Adversity makes a man wise, not rich.',
   url: 'https://drremain.cn',
   baseUrl: '/',
@@ -7,7 +7,7 @@ module.exports = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'drremain', // Usually your GitHub org/user name.
-  projectName: 'DrReMain', // Usually your repo name.
+  projectName: '', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'DrReMain',
