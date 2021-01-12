@@ -3,7 +3,7 @@ module.exports = {
         {
             type: 'category',
             label: '源码阅读系列',
-            items: ["source/npm", "source/yarn"],
+            items: ["source/npm", "source/yarn", "source/express"],
         },
         // {
         //     type: 'category',
