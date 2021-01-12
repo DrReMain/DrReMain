@@ -1,16 +1,16 @@
 module.exports = {
   title: 'DrReMain\'s Lab',
-  tagline: 'Adversity makes a man wise, not rich.',
+  // tagline: 'Adversity makes a man wise, not rich.',
   url: 'https://drremain.cn',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'drremain', // Usually your GitHub org/user name.
-  projectName: '', // Usually your repo name.
+  projectName: 'DrReMain', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'DrReMain',
+      title: '',
       logo: {
         alt: 'drremain',
         src: 'img/logo.svg',
@@ -19,10 +19,10 @@ module.exports = {
         {
           to: 'docs/',
           activeBasePath: 'docs',
-          label: 'Docs',
+          label: '文章',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        // {to: 'blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/DrReMain',
           label: 'GitHub',
@@ -32,21 +32,21 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: '社区',
-          items: [
-            {
-              label: '掘金',
-              href: 'https://juejin.cn/user/2858385962182077',
-            },
-            {
-              label: 'stackoverflow',
-              href: 'https://stackoverflow.com/users/12681046/dr-remain',
-            },
-          ],
-        },
-      ],
+      // links: [
+      //   {
+      //     title: '社区',
+      //     items: [
+      //       {
+      //         label: '掘金',
+      //         href: 'https://juejin.cn/user/2858385962182077',
+      //       },
+      //       {
+      //         label: 'stackoverflow',
+      //         href: 'https://stackoverflow.com/users/12681046/dr-remain',
+      //       },
+      //     ],
+      //   },
+      // ],
       copyright: `Copyright © ${new Date().getFullYear()} DrReMain.`,
     },
   },
