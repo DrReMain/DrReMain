@@ -3,23 +3,33 @@ id: express
 title: express
 ---
 
-You can write JSX and use React components within your Markdown thanks to [MDX](https://mdxjs.com/).
+import Info from "../../src/components/info";
 
-export const Highlight = ({ children, color }) => (
-  <span
-    style={{
-      backgroundColor: color,
-      borderRadius: "2px",
-      color: "#fff",
-      padding: "0.2rem",
-    }}
-  >
-    {children}
-  </span>
-);
+<Info
+  github="https://github.com/expressjs/express/"
+  office="https://expressjs.com/"
+  officeCN="https://www.expressjs.com.cn/"
+/>
 
-<Highlight color="#25c2a0">Docusaurus green</Highlight> and <Highlight color="#1877F2">
-  Facebook blue
-</Highlight> are my favorite colors.
+---
 
-I can write **Markdown** alongside my _JSX_!
+express 是一个轻量级 nodejs 的 WEB 框架。
+
+源码目录结构如下
+
+```bash
+├── application.js
+├── express.js
+├── middleware
+│   ├── init.js
+│   └── query.js
+├── request.js
+├── response.js
+├── router
+│   ├── index.js
+│   ├── layer.js
+│   └── route.js
+├── utils.js
+└── view.js
+```
+

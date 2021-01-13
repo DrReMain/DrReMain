@@ -1,37 +1,37 @@
 module.exports = {
-  title: 'DrReMain\'s Lab',
+  title: "DrReMain's Lab",
   // tagline: 'Adversity makes a man wise, not rich.',
-  url: 'https://drremain.cn',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'drremain', // Usually your GitHub org/user name.
-  projectName: 'DrReMain', // Usually your repo name.
+  url: "https://drremain.cn",
+  baseUrl: "/",
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.ico",
+  organizationName: "drremain", // Usually your GitHub org/user name.
+  projectName: "DrReMain", // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: '',
+      title: "",
       logo: {
-        alt: 'drremain',
-        src: 'img/logo.svg',
+        alt: "drremain",
+        src: "img/logo.svg",
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: '文章',
-          position: 'left',
+          to: "docs/",
+          activeBasePath: "docs",
+          label: "文章",
+          position: "left",
         },
         // {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/DrReMain',
-          label: 'GitHub',
-          position: 'right',
+          href: "https://github.com/DrReMain",
+          label: "GitHub",
+          position: "right",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       // links: [
       //   {
       //     title: '社区',
@@ -52,22 +52,20 @@ module.exports = {
   },
   presets: [
     [
-      '@docusaurus/preset-classic',
+      "@docusaurus/preset-classic",
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+          editUrl: "https://github.com/DrReMain/DrReMain/issues",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+          editUrl: "https://github.com/DrReMain/DrReMain/issues",
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
