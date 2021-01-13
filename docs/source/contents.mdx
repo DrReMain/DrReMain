@@ -1,0 +1,19 @@
+---
+id: contents
+title: 目录
+slug: /
+---
+
+import Link from "@docusaurus/Link";
+
+export const Contents = ({ data }) => (
+  <ul>
+    {data.map((_) => (
+      <li key={_.name}>
+        <Link to={_.href}>{_.name}</Link>
+      </li>
+    ))}
+  </ul>
+);
+
+<Contents data={[{ name: "express", href: "/docs/source/express" }]} />
