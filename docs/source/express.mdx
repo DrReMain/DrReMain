@@ -3,23 +3,101 @@ id: express
 title: express
 ---
 
-You can write JSX and use React components within your Markdown thanks to [MDX](https://mdxjs.com/).
+import Info from "../../src/components/info";
+import Tag from "../../src/components/tag";
 
-export const Highlight = ({ children, color }) => (
-  <span
-    style={{
-      backgroundColor: color,
-      borderRadius: "2px",
-      color: "#fff",
-      padding: "0.2rem",
-    }}
-  >
-    {children}
-  </span>
-);
+<Info
+  github="https://github.com/expressjs/express/"
+  office="https://expressjs.com/"
+  officeCN="https://www.expressjs.com.cn/"
+  version="4.17.1"
+/>
 
-<Highlight color="#25c2a0">Docusaurus green</Highlight> and <Highlight color="#1877F2">
-  Facebook blue
-</Highlight> are my favorite colors.
+---
 
-I can write **Markdown** alongside my _JSX_!
+express 是一个轻量级 nodejs 的 WEB 框架。
+
+源码目录结构如下
+
+```bash
+├── application.js
+├── express.js
+├── middleware
+│   ├── init.js
+│   └── query.js
+├── request.js
+├── response.js
+├── router
+│   ├── index.js
+│   ├── layer.js
+│   └── route.js
+├── utils.js
+└── view.js
+```
+
+express 最终导出的是一个名为 `createApplication` 的函数。所以使用 express 时需要优先引入 express 并执行创建一个对象。
+
+```js
+const express = require("express");
+const server = express();
+```
+
+> 由于多处的变量命名重复，我们这里将被 express() 返回的对象命名为<Tag>server</Tag>
+
+## createApplication
+
+方法本身创建并最后返回了一个 app 的函数，方法内将该 app 函数当做一个对象进行了一系列处理。
+
+```js
+function createApplication() {
+  var app = function (req, res, next) {
+    app.handle(req, res, next);
+  };
+
+  /**
+   * mixin 使用 merge-descriptors，即将第二个参数对象的OwnProperty拷贝到第一个参数对象app上
+   * 由于这里第三个参数都是false，代表对象app上已有的OwnProperty不会被覆盖
+   */
+  // EventEmitter 就是nodejs的events模块的EventEmitter
+  mixin(app, EventEmitter.prototype, false);
+  // var proto = require('./application');
+  mixin(app, proto, false);
+
+  // var req = require('./request');
+  app.request = Object.create(req, {
+    app: { configurable: true, enumerable: true, writable: true, value: app },
+  });
+
+  // var res = require('./response');
+  app.response = Object.create(res, {
+    app: { configurable: true, enumerable: true, writable: true, value: app },
+  });
+
+  app.init();
+  return app;
+}
+```
+
+同时与 createApplication 一同导出的挂载在 express 对象下的还有如下属性
+
+- `express.application`
+- `express.request`
+- `express.response`
+- `express.Route`
+- `express.Router`
+- `express.json`
+- `express.query`
+- `express.raw`
+- `express.static`
+- `express.text`
+- `express.urlencoded`
+
+## application
+
+该模块导出一个字面量对象(以下称该对象为<Tag>appObj</Tag>)，该字面量对象下的 OwnProperty 都会被 copy 到 app 上，并调用 `app.init()` 后被 `express()` 返回。
+
+### app.init()
+
+该方法会为 server 添加 `cache`, `engines`, `setting`三个属性，并调用 app.defaultConfiguration()
+
+### app.defaultConfiguration()
