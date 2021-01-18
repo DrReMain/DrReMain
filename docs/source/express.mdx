@@ -92,12 +92,18 @@ function createApplication() {
 - `express.text`
 - `express.urlencoded`
 
-## application
-
-该模块导出一个字面量对象(以下称该对象为<Tag>appObj</Tag>)，该字面量对象下的 OwnProperty 都会被 copy 到 app 上，并调用 `app.init()` 后被 `express()` 返回。
-
 ### app.init()
 
-该方法会为 server 添加 `cache`, `engines`, `setting`三个属性，并调用 app.defaultConfiguration()
+该方法会为 server 添加 `cache`, `engines`, `settings`三个属性，并调用 app.defaultConfiguration()
 
-### app.defaultConfiguration()
+## application
+
+该模块导出一个字面量对象(以下称该对象为<Tag>appObj</Tag>)，该字面量对象下的 OwnProperty 都会在 `createApplication()` 中被 copy 到 app 上。
+
+## request
+
+express.request 来自于 `Object.create(require('http').IncomingMessage.prototype)`
+
+## response
+
+express.response 来自于 `Object.create(require('http').ServerResponse.prototype)`
