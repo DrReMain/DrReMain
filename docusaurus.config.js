@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
     title: "DrReMain's Lab",
     // tagline: 'Adversity makes a man wise, not rich.',
@@ -77,8 +79,6 @@ module.exports = {
         ],
     ],
     plugins: [
-        ['@docusaurus/plugin-pwa', {
-            debug: true
-        }]
+        path.resolve(__dirname, './sourcemap-docusaurus-plugin')
     ]
 };
