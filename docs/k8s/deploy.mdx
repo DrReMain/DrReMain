@@ -1,0 +1,207 @@
+---
+id: deploy
+title: kubeadm部署k8s集群
+---
+
+## 准备工作
+
+本地准备3台虚拟机，一台master，两台worker，使用桥接保证在同一网段。
+
+安装centos8.3 并配置aliyun yum源
+
+以下所有启动集群之前的操作每个节点都需要
+
+设置系统主机名和修改hosts文件（生产环境使用DNS）
+
+```shell
+hostnamectl set-hostname k8s-master01
+
+vi /etc/hosts
+
+# xxx.xxx.xxx.xxx k8s-master01
+# xxx.xxx.xxx.xxx k8s-worker01
+# xxx.xxx.xxx.xxx k8s-worker02
+```
+
+## 安装系统依赖
+
+```shell
+yum install -y conntrack chrony ipvsadm ipset jq iptables sysstat libseccomp vim net-tools git wget
+```
+
+## 设置防火墙为 iptables 并设置空规则
+
+```shell
+systemctl stop firewalld && systemctl disable firewalld
+
+yum install -y iptables-services && systemctl start iptables && systemctl enable iptables && iptables -F && service iptables save
+```
+
+## 关闭虚拟内存和SELINUX
+
+```shell
+swapoff -a && sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+setenforce 0 && sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+```
+
+## 调整内核参数
+
+```shell
+cat > kubernetes.conf <<EOF
+net.bridge.bridge-nf-call-iptables=1
+net.bridge.bridge-nf-call-ip6tables=1
+net.ipv4.ip_forward=1
+net.ipv4.tcp_tw_recycle=0
+vm.swappiness=0
+vm.overcommit_memory=1
+vm.panic_on_oom=0
+fs.inotify.max_user_instances=8192
+fs.inotify.max_user_watches=1048576
+fs.file-max=52706963
+fs.nr_open=52706963
+net.ipv6.conf.all.disable_ipv6=1
+net.netfilter.nf_conntrack_max=2310720
+EOF
+
+cp kubernetes.conf /etc/sysctl.d/kubernetes.conf
+
+sysctl -p /etc/sysctl.d/kubernetes.conf
+
+```
+
+## 设置系统时区
+
+```shell
+timedatectl set-timezone Asia/Shanghai
+
+timedatectl set-local-rtc 0
+
+systemctl restart rsyslog
+
+systemctl restart crond
+```
+
+## 设置 rsyslogd 和 systemd journald
+
+```shell
+mkdir /var/log/journal
+
+mkdir /etc/systemd/journald.conf.d
+
+cat > /etc/systemd/journald.conf.d/99-prophet.conf << EOF
+[Journal]
+Storage=persistent
+Compress=yes
+SyncIntervalSec=5m
+RateLimitInterval=30s
+RateLimitBurst=1000
+SystemMaxUse=10G
+SystemMaxFileSize=200M
+MaxRatentionSec=2week
+ForwardToSyslog=no
+EOF
+
+systemctl restart systemd-journald
+```
+
+## kube-proxy开启ipvs前置条件
+
+最终使用了iptables，并没有使用ipvs
+
+```shell
+modprobe br_netfilter
+
+cat > /etc/sysconfig/modules/ipvs.modules << EOF
+#!/bin/bash
+modprobe -- ip_vs
+modprobe -- ip_vs_rr
+modprobe -- ip_vs_wrr
+modprobe -- ip_vs_sh
+modprobe -- nf_conntrack
+EOF
+
+chmod 755 /etc/sysconfig/modules/ipvs.modules && bash /etc/sysconfig/modules/ipvs.modules && lsmod | grep -e ip_vs -e nf_conntrack
+```
+
+## 安装docker
+
+> 参考 docker 官方文档
+
+需要拉取k8s镜像的网络环境，你懂的
+
+### 配置
+
+```shell
+mkdir /etc/docker
+
+cat > /etc/docker/daemon.json << EOF
+{
+    "exec-opts": ["native.cgroupdriver=systemd"],
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "100m"
+    }
+}
+EOF
+```
+
+mkdir -p /etc/systemd/system/docker.service.d
+
+systemctl daemon-reload && systemctl start docker && systemctl enable docker
+
+## 安装 kubeadm
+
+```shell
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+
+yum install -y kubeadm kubelet kubectl
+
+```
+
+# 初始化master
+
+master节点
+
+```shell
+kubeadm config print init-defaults > kubeadm-config.yaml
+
+# ...
+# localAPIEndpoint:
+#   advertiseAddress: <master节点ip>
+# kubernetesVersion: v1.20.2
+# networking:
+#  dnsDomain: cluster.local
+#  podSubnet: "10.244.0.0/16"
+#  serviceSubnet: 10.96.0.0/12
+
+kubeadm init --config=kubeadm-config.yaml --upload-certs | tee kubeadm-init.log
+
+# 查看 kubeadm-init.log 结尾的提示
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# 加入工作节点，kubeadm-init.log 最后
+kubeadm join <address> --token <token> \
+    --discovery-token-ca-cert-hash <sha256>
+
+```
+
+## 安装 flannel
+
+```shell
+wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+kubectl create -f kube-flannel.yml
+
+```
