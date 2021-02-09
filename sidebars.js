@@ -5,10 +5,10 @@ module.exports = {
       label: "源码阅读系列",
       items: ["source/contents", "source/express"],
     },
-    // {
-    //     type: 'category',
-    //     label: 'TEMPLATE',
-    //     items: ['doc1', 'doc2', 'doc3', 'mdx'],
-    // }
+    {
+        type: 'category',
+        label: 'kubernetes',
+        items: ['k8s/deploy'],
+    }
   ],
 };
