@@ -1,0 +1,61 @@
+import Layout from "../../components/layout"
+
+export const meta = {
+    title: "acorn",
+    version: "8.8.1",
+    github: 'https://github.com/acornjs/acorn/tree/8.8.1',
+}
+
+<Layout meta={meta}>
+    *acorn 是一个小型快速的 javascript 解析器。Webpack就是用它得到的 AST*
+
+    *零依赖，源码量不多，使用 JavaScript 编写，rollup构建*
+
+    ```
+    ├── bin
+    │   └── acorn
+    ├── dist
+    │   ├── acorn.d.ts
+    │   └── acorn.mjs.d.ts
+    ├── package.json
+    ├── rollup.config.js
+    └── src
+    ├── bin
+    │   └── acorn.js
+    ├── expression.js
+    ├── generated
+    │   ├── astralIdentifierCodes.js
+    │   ├── astralIdentifierStartCodes.js
+    │   ├── nonASCIIidentifierChars.js
+    │   └── nonASCIIidentifierStartChars.js
+    ├── identifier.js
+    ├── index.js
+    ├── location.js
+    ├── locutil.js
+    ├── lval.js
+    ├── node.js
+    ├── options.js
+    ├── package.json
+    ├── parseutil.js
+    ├── regexp.js
+    ├── scope.js
+    ├── scopeflags.js
+    ├── state.js
+    ├── statement.js
+    ├── tokencontext.js
+    ├── tokenize.js
+    ├── tokentype.js
+    ├── unicode-property-data.js
+    ├── util.js
+    └── whitespace.js
+    ```
+
+    ---
+
+    # 起步
+
+    acorn 导出一个对象包含 `Parser`, `defaultOptions`, `Position`,
+    `SourceLocation`, `getLineInfo`, `Node`, `TokenType`, `tokTypes`, `keywordTypes`,
+    `TokContext`, `tokContexts`, `isIdentifierChar`, `isIdentifierStart`, `Token`,
+    `isNewLine`, `lineBreak`, `lineBreakG`, `nonASCIIwhitespace` 这些属性。
+</Layout>
