@@ -50,12 +50,11 @@ export const meta = {
     └── whitespace.js
     ```
 
-    ---
-
     # 起步
 
-    acorn 导出一个对象包含 `Parser`, `defaultOptions`, `Position`,
-    `SourceLocation`, `getLineInfo`, `Node`, `TokenType`, `tokTypes`, `keywordTypes`,
-    `TokContext`, `tokContexts`, `isIdentifierChar`, `isIdentifierStart`, `Token`,
-    `isNewLine`, `lineBreak`, `lineBreakG`, `nonASCIIwhitespace` 这些属性。
+    acorn包含一个命令行工具，src/bin/acorn.js
+
+    acorn 的入口文件是 src/index.js，导出一个关键对象 `Parser` 和3个函数，分别是`parse`, `parseExpressionAt`, `tokenizer`。
+
+    Parser对象来自于 src/state.js。上述3个导出的函数即调用的是 Parser 同名的静态方法。
 </Layout>

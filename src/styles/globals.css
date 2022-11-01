@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 html,body {
-    @apply min-w-[1200px];
+    min-width: 1200px;
 }

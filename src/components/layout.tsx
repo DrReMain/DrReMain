@@ -2,8 +2,6 @@ import type { PropsWithChildren } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
-import { ThemeProvider, Container } from 'theme-ui';
-import theme from '@hackclub/theme';
 
 import PNGLogo from '@/assets/slogo-color.png';
 
@@ -30,7 +28,7 @@ const Layout = ({
         <title>{title}</title>
       </Head>
 
-      <header className="bg-white dark:bg-black h-16 px-20 flex items-center justify-between sticky top-0 shadow">
+      <header className="bg-white h-16 px-20 flex items-center justify-between sticky top-0 shadow">
         <div className="flex items-center gap-4">
           <Image src={PNGLogo} object-fit="scale-down" className="w-8 h-8" alt="shijiao" />
           <span className="font-black antialiased text-2xl">ShiJiao</span>
@@ -89,11 +87,7 @@ const Layout = ({
         </p>
       </section>
 
-      <article className="w-[1200px] ml-24 my-4 p-2 rounded bg-gray-100 dark:bg-slate-900 shadow-inner">
-        <ThemeProvider theme={theme as any}>
-          <Container>{children}</Container>
-        </ThemeProvider>
-      </article>
+      <article className="w-[1200px] ml-24 my-4">{children}</article>
     </>
   );
 };
