@@ -57,23 +57,18 @@ const IndexPage = ({ articles }: PropsWithChildren<IProps>) => {
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-          <input
-            disabled
-            className="bg-white flex-1 h-full outline-0 border-none"
-            placeholder="搜索暂不可用"
-            type="text"
-          />
+          <input disabled className="bg-white flex-1 h-full" placeholder="搜索暂不可用" type="text" />
         </div>
       </section>
 
       <section className="mx-20 mt-20 flex items-center justify-center gap-16 text-gray-600">
-        <button className="bg-teal-400 text-white rounded-full px-4 py-2 border-none">源码阅读系列</button>
-        <button disabled>FE</button>
-        <button disabled>Golang</button>
-        <button disabled>Rust</button>
-        <button disabled>Python</button>
-        <button disabled>CloudNative</button>
-        <button disabled>BlockChain</button>
+        <button className="bg-teal-400 text-white rounded-full px-4 py-2">源码阅读系列</button>
+        <button>FE</button>
+        <button>Golang</button>
+        <button>Rust</button>
+        <button>Python</button>
+        <button>CloudNative</button>
+        <button>BlockChain</button>
       </section>
 
       <main className="mx-20 mt-10 box-border grid grid-cols-5 gap-4">
