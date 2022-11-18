@@ -5,3 +5,7 @@
 html,body {
     min-width: 1200px;
 }
+
+img {
+    width: 100%;
+}

@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 // import matter from 'gray-matter';
-import { mdxs } from '@/utils/articlespath';
+import { ARTICLES_PATH, dirs, mdxs } from '@/utils/articlespath';
 
 import IndexPage, { IProps } from '@/features/index';
 
@@ -23,16 +23,14 @@ export default function Index(props: PropsWithChildren<IProps>) {
 }
 
 export const getStaticProps: GetStaticProps<IProps> = () => {
-  const articles = mdxs.map((name) => {
+  const data = dirs.map((name) => {
     // const source = fs.readFileSync(path.join(ARTICLES_PATH, name));
     // const {} = matter(source);
 
-    const filename = name.replace(/\.mdx?$/, '');
+    const articles = mdxs(`${ARTICLES_PATH}/${name}`).map((_) => _.replace(/\.mdx?$/, ''));
 
-    return {
-      filename,
-    };
+    return { belong: name, articles };
   });
 
-  return { props: { articles } };
+  return { props: { data } };
 };

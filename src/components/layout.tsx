@@ -7,10 +7,11 @@ import PNGLogo from '@/assets/slogo-color.png';
 
 interface IProps {
   meta: {
-    author: string;
-    title: string;
-    version: string;
-    github: string;
+    author?: string;
+    article?: string;
+    title?: string;
+    version?: string;
+    github?: string;
     office?: string;
     officeCN?: string;
   };
@@ -18,14 +19,14 @@ interface IProps {
 
 const Layout = ({
   children,
-  meta: { author = '尸佼', title, version, github, office, officeCN },
+  meta: { author = '尸佼', article, title, version, github, office, officeCN },
 }: PropsWithChildren<IProps>) => {
   const { back } = useRouter();
 
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>{title || article}</title>
       </Head>
 
       <header className="bg-white h-16 px-20 flex items-center justify-between sticky top-0 shadow">
@@ -51,20 +52,32 @@ const Layout = ({
       </section>
 
       <section className="w-[1200px] ml-24 my-8 flex flex-col gap-2">
-        <p className="m-0 flex items-center">
-          <label className="w-32">项目名称：</label>
-          {title}
-        </p>
-        <p className="m-0 flex items-center">
-          <label className="w-32">版本：</label>
-          {version}
-        </p>
-        <p className="m-0 flex items-center">
-          <label className="w-32">GitHub:</label>
-          <a className="text-blue-500" href={github} target="_blank" rel="noreferrer">
-            {github}
-          </a>
-        </p>
+        {article ? (
+          <p className="m-0 flex items-center font-bold text-4xl">
+            <label className="w-32">标题：</label>
+            {article}
+          </p>
+        ) : null}{' '}
+        {title ? (
+          <p className="m-0 flex items-center">
+            <label className="w-32">项目名称：</label>
+            {title}
+          </p>
+        ) : null}
+        {version ? (
+          <p className="m-0 flex items-center">
+            <label className="w-32">版本：</label>
+            {version}
+          </p>
+        ) : null}
+        {github ? (
+          <p className="m-0 flex items-center">
+            <label className="w-32">GitHub:</label>
+            <a className="text-blue-500" href={github} target="_blank" rel="noreferrer">
+              {github}
+            </a>
+          </p>
+        ) : null}
         {office ? (
           <p className="m-0 flex items-center">
             <label className="w-32">官网:</label>

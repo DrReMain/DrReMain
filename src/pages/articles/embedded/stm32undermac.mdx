@@ -1,0 +1,173 @@
+import Layout from "../../../components/layout"
+
+export const meta = {
+    article: "在M1 Mac平台配置stm32开发环境",
+}
+
+<Layout meta={meta}>
+    因业务需要，略微研究一下嵌入式，咨询多方大佬最后挑了stm32入手。我买的是正点原子的，精英版stm32F103ZET6，包含stlink。
+
+    由于嵌入式大多数人都使用windows开发，包括正点原子的教程也是基于windows的一套环境。但我本人习惯了mac开发，并且买了jetbrains全家桶。
+
+    希望能以现有的条件配置stm32的开发环境，由于基于此套环境的网络资料较少，所以开始折腾并记录一下，以防忘记，也给需要的人借鉴一下。
+
+    # 安装xcode 和 homebrew
+
+    xcode带有c/c++环境，homebrew安装方式见官方文档 [https://brew.sh](https://brew.sh)
+
+    # 安装clion
+
+    请支持正版，单独买clion其实并不贵。
+
+    # 安装STM32Cubemx
+
+    安装STM32Cubemx需要java环境，我习惯用homebrew管理软件安装，所以java我也是使用homebrew
+
+    ```bash
+    # 在brew.sh搜索temurin，查看详细信息
+    ❯ brew install temurin
+
+    ❯ java --version
+    openjdk 19.0.1 2022-10-18
+    OpenJDK Runtime Environment Temurin-19.0.1+10 (build 19.0.1+10)
+    OpenJDK 64-Bit Server VM Temurin-19.0.1+10 (build 19.0.1+10, mixed mode)
+    ```
+
+    准备好java环境后，因为我是apple silicon芯片的mac，所以还需要rosetta2，STM32Cubemx是基于x86架构的
+
+    ```bash
+    ❯ softwareupdate --install-rosetta
+    ```
+
+    STM32Cubemx 请前往[官网](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)下载并解压，我这里下载的是6.6.1版本
+
+    用命令行进入解压之后的文件夹可以看到 3 个东西 `Readme.html` `SetupSTM32CubeMX-6.6.1.app` `jre`
+
+    这里注意不要双击图标去安装，而需要用java允许jar包的方式安装。具体如下
+
+    ```bash
+    ❯ pwd
+    /Users/xxx/Downloads/en.stm32cubemx-mac_v6-6-1
+
+    ❯ ls
+    Readme.html                SetupSTM32CubeMX-6.6.1.app jre
+
+    ❯ cd SetupSTM32CubeMX-6.6.1.app/Contents/MacOs
+
+    ❯ ls
+    SetupSTM32CubeMX-6_6_1
+
+    ❯ sudo java -jar SetupSTM32CubeMX-4.14.0
+    ```
+
+    弹出安装GUI直接下一步，下一步就可以了。
+
+    # 安装 ARM toolchain
+
+    ```bash
+    ❯ brew tap ArmMbed/homebrew-formulae
+
+    ❯ brew install arm-none-eabi-gcc
+
+    ❯ arm-none-eabi-gcc -v
+    Using built-in specs.
+    COLLECT_GCC=arm-none-eabi-gcc
+    ............
+
+    ```
+
+    # 安装openocd 和 stlink
+
+    ```bash
+    ❯ brew install open-ocd
+
+    ❯ openocd -v
+    Open On-Chip Debugger 0.11.0
+    Licensed under GNU GPL v2
+    For bug reports, read
+    http://openocd.org/doc/doxygen/bugs.html
+
+    ❯ brew install stlink
+
+    ❯ st-info --version
+    v1.7.0
+    ```
+
+    # Clion配置
+
+    打开Clion设置，进入 `Build,Execution,Deployment -> Embedded Development`
+
+    ![](/1/WX20221119-044821.png)
+
+    配置好openocd和stm32cubemx的位置，点击text通过就行
+
+    ```bash
+    ❯ which openocd
+    /opt/homebrew/bin/openocd
+    ```
+
+    stm32cubemx因为是通过java -jar安装的，我这里被安装到了当前用户家目录下
+
+    # 新建工程
+
+    环境已经都配置完成。开始新建工程，可以使用clion直接创建
+
+    ![](/1/WX20221119-045814.png)
+
+    我因为在stm32cubemx中更改了默认固件包，所以创建项目的时候会出现
+
+    ![](/1/WX20221119-050016.png)
+
+    因为clion默认创建的是FW_F0的项目，如果大家没有更改则不会有这个问题。如果有直接点continue就行了
+
+    工程创建成功后根目录下会有一个`.ioc文件`，打开并点击 `Open with STM32CubeMX`
+
+    ![](/1/WX20221119-050333.png)
+
+    ## 下载F1系列包
+
+    点击Home去到首页
+
+    ![](/1/WX20221119-050606.png)
+
+    点击 INSTALL/REMOVE
+
+    ![](/1/WX20221119-050732.png)
+
+    卸载不需要的包，因为我使用的是STM32F103ZE，所以安装f1最新的包
+
+    ![](/1/WX20221119-050925.png)
+
+    回到上上张图，点击Home右边的`STM32F030F4px`选择MCU。直接左上角 Commercial Part Number 这里搜索你的MCU型号。双击右边选择的型号。
+
+    ![](/1/WX20221119-051204.png)
+
+    点击 `Project Manager`
+
+    1.project Name这里必须和clion创建的文件夹名一致，包括Project Location路径也要对得上
+
+    2.Toolchain / IDE这里选择STM32CubeIDE
+
+    最后点击 `GENERATE CODE` 刷新工程
+
+    刷新完成后点cancel，并回到clion
+
+    ![](/1/WX20221119-051753.png)
+
+    此时clion应该会弹出如下弹窗，选择配置文件并选择`copy to Project & Use`
+
+    ![](/1/WX20221119-052456.png)
+
+    到此，点击如图所示位置应该会有两个运行配置，并且点击左边那个小锤子进行编译如果不报错就是配置成功了。
+
+    ![](/1/WX20221119-052832.png)
+
+    查看配置，assist的按钮可以调出上上张图的弹窗，如果之前没有选择配置文件，也可以在这里重新选择
+
+    如果工程创建完，没有`OpenOCD Download & Run`配置，也可手动创建该配置
+
+    最后，将板子通电开机，电脑通过usb接上stlink，stlink接入板子，点击运行或DEBUG就能烧录运行了
+
+    ![](/1/WX20221119-053149.png)
+
+</Layout>

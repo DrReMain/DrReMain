@@ -4,14 +4,43 @@ import Image from 'next/image';
 
 import PNGLogo from '@/assets/slogo-color.png';
 import styles from './index.module.css';
+import { useState } from 'react';
 
 export interface IProps {
-  articles: {
-    filename: string;
+  data: {
+    belong: string;
+    articles: string[];
   }[];
 }
 
-const IndexPage = ({ articles }: PropsWithChildren<IProps>) => {
+const IndexPage = ({ data }: PropsWithChildren<IProps>) => {
+  const [belong, setBelong] = useState('sourceread');
+
+  const renderBelong = (name: string) => {
+    switch (name) {
+      case 'sourceread':
+        return '源码阅读系列';
+      case 'embedded':
+        return '嵌入式';
+      default:
+        return name;
+    }
+  };
+
+  const renderTitle = (title: string) => {
+    switch (title) {
+      case 'stm32undermac':
+        return (
+          <>
+            <span className="font-bold text-black text-2xl">mac配置stm32开发环境</span>
+            <span>Apple Silicon + Clion</span>
+          </>
+        );
+      default:
+        return <span>{title}</span>;
+    }
+  };
+
   return (
     <>
       <header className="h-24 px-20 flex items-center justify-between">
@@ -57,29 +86,36 @@ const IndexPage = ({ articles }: PropsWithChildren<IProps>) => {
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-          <input disabled className="bg-white flex-1 h-full" placeholder="搜索暂不可用" type="text" />
+          <input disabled className="bg-white border-0 flex-1 h-full" placeholder="搜索暂不可用" type="text" />
         </div>
       </section>
 
       <section className="mx-20 mt-20 flex items-center justify-center gap-16 text-gray-600">
-        <button className="bg-teal-400 text-white rounded-full px-4 py-2">源码阅读系列</button>
-        <button>FE</button>
-        <button>Golang</button>
-        <button>Rust</button>
-        <button>Python</button>
-        <button>CloudNative</button>
-        <button>BlockChain</button>
+        {data.map((_) => (
+          <button
+            key={_.belong}
+            onClick={() => setBelong(_.belong)}
+            className={
+              belong === _.belong
+                ? 'cursor-pointer border-0 bg-teal-400 text-white rounded-full px-4 py-2'
+                : 'cursor-pointer border-0 bg-gray-400 text-white rounded-full px-4 py-2'
+            }>
+            {renderBelong(_.belong)}
+          </button>
+        ))}
       </section>
 
       <main className="mx-20 mt-10 box-border grid grid-cols-5 gap-4">
-        {articles.map(({ filename }) => (
-          <Link
-            href={`articles/${filename}`}
-            key={filename}
-            className="h-20 w-full flex items-center justify-center rounded-xl bg-slate-200 hover:shadow-lg hover:scale-105 transition-all duration-200 no-underline ">
-            <span className="font-bold text-2xl text-black">{filename}</span>
-          </Link>
-        ))}
+        {data
+          ?.find((_) => _.belong === belong)
+          ?.articles.map((filename) => (
+            <Link
+              href={`articles/${belong}/${filename}`}
+              key={filename}
+              className="box-border h-32 w-full p-4 flex flex-col gap-2 items-center justify-center rounded-xl bg-slate-200 hover:shadow-lg hover:scale-105 transition-all duration-200 no-underline text-black">
+              {renderTitle(filename)}
+            </Link>
+          ))}
       </main>
     </>
   );

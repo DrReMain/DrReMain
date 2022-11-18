@@ -3,4 +3,6 @@ import path from 'path';
 
 export const ARTICLES_PATH = path.join(process.cwd(), 'src/pages/articles');
 
-export const mdxs = fs.readdirSync(ARTICLES_PATH).filter((path) => /\.mdx?$/.test(path));
+export const dirs = fs.readdirSync(ARTICLES_PATH);
+
+export const mdxs = (article_path: string) => fs.readdirSync(article_path).filter((path) => /\.mdx?$/.test(path));
