@@ -43,7 +43,7 @@ export const meta = {
 
     用命令行进入解压之后的文件夹可以看到 3 个东西 `Readme.html` `SetupSTM32CubeMX-6.6.1.app` `jre`
 
-    这里注意不要双击图标去安装，而需要用java允许jar包的方式安装。具体如下
+    这里注意不要双击图标去安装，而需要用java运行jar包的方式安装。具体如下
 
     ```bash
     ❯ pwd
@@ -99,14 +99,14 @@ export const meta = {
 
     ![](/1/WX20221119-044821.png)
 
-    配置好openocd和stm32cubemx的位置，点击text通过就行
+    配置好openocd和stm32cubemx的位置，点击test通过就行
 
     ```bash
     ❯ which openocd
     /opt/homebrew/bin/openocd
     ```
 
-    stm32cubemx因为是通过java -jar安装的，我这里被安装到了当前用户家目录下
+    openocd使用brew安装，所以都在brew的bin目录下。而stm32cubemx因为是通过java -jar安装的，我这里被安装到了当前用户家目录下
 
     # 新建工程
 
