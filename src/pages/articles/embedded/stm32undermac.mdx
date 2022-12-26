@@ -57,7 +57,7 @@ export const meta = {
     ❯ ls
     SetupSTM32CubeMX-6_6_1
 
-    ❯ sudo java -jar SetupSTM32CubeMX-4.14.0
+    ❯ sudo java -jar SetupSTM32CubeMX-6_6_1
     ```
 
     弹出安装GUI直接下一步，下一步就可以了。
@@ -141,6 +141,13 @@ export const meta = {
     回到上上张图，点击Home右边的`STM32F030F4px`选择MCU。直接左上角 Commercial Part Number 这里搜索你的MCU型号。双击右边选择的型号。
 
     ![](/1/WX20221119-051204.png)
+
+    > SYS -> Debug -> Serial Wire
+    > RCC -> High Speed Clock -> Crystal/Ceramic Resonator
+    > PB5 选择GPIO_Output
+    > GPIO output level -> High
+    > User Label -> LED0
+    > HCLK -> 72
 
     点击 `Project Manager`
 
