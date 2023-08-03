@@ -16,7 +16,7 @@
 - 📫 How to reach me **51071534@qq.com**
 
 <h3 align="left">Languages and Tools:</h3>
-<div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem;">
+<p align="center">
 <a href="https://www.linux.org/" target="_blank" rel="noreferrer">
     <img src="README/linux-original.svg" alt="linux" width="40" height="40"/>
 </a>
@@ -142,9 +142,9 @@
 </a>
 
 <a href="https://www.tensorflow.org" target="_blank" rel="noreferrer">
-    <img src="./README/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/>
+    <img src="README/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/>
 </a>
-</div>
+</p>
 
 --- 
 
