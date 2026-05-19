@@ -1,21 +1,21 @@
-![](README/Bottom_up.svg)
+<!-- ![](README/Bottom_up.svg) -->
 
 ![](README/header.png)
 
-<h1 align="center">👋, I'm DrReMain(shijiao)</h1>
-<h2 align="center">A FrontEnd and CloudNative developer</h2>
+<!-- <h1 align="center">👋, I'm DrReMain(shijiao)</h1> -->
+<!-- <h2 align="center">A FrontEnd and CloudNative developer</h2> -->
 
-- 🔭 I’m currently starting up **Cyber-Dancer Co.Ltd.Inc.**
+<!-- - 🔭 I’m currently starting up **Cyber-Dancer Co.Ltd.Inc.** -->
 
-- 🌱 I’m currently learning **Embedded Development**
+<!-- - 🌱 I’m currently learning **Embedded Development** -->
 
-- 👨‍💻 All of my projects are available at [https://github.com/DrReMain](https://github.com/DrReMain)
+<!-- - 👨‍💻 All of my projects are available at [https://github.com/DrReMain](https://github.com/DrReMain) -->
 
-- 💬 Ask me about **FrontEnd, Golang, Rust**
+<!-- - 💬 Ask me about **FrontEnd, Golang, Rust** -->
 
-- 📫 How to reach me **51071534@qq.com**
+<!-- - 📫 How to reach me **51071534@qq.com** -->
 
-<h3 align="left">Languages and Tools:</h3>
+<!-- <h3 align="left">Languages and Tools:</h3>
 <p align="center">
 <a href="https://www.linux.org/" target="_blank" rel="noreferrer">
     <img src="README/linux-original.svg" alt="linux" width="40" height="40"/>
@@ -144,18 +144,19 @@
 <a href="https://www.tensorflow.org" target="_blank" rel="noreferrer">
     <img src="README/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/>
 </a>
-</p>
+</p> -->
 
 --- 
 
 <p align="center">
-<img height="108px" src="https://github-readme-stats.vercel.app/api?username=DrReMain&show_icons=true&theme=radical&include_all_commits=true" />
-<img height="108px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=DrReMain&theme=radical&layout=compact" />
+<!-- <img height="108px" src="https://github-readme-stats.vercel.app/api?username=DrReMain&show_icons=true&theme=radical&include_all_commits=true" /> -->
+<!-- <img height="108px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=DrReMain&theme=radical&layout=compact" /> -->
 <img height="108px" src="https://github-readme-streak-stats.herokuapp.com/?user=DrReMain&theme=cobalt" />
 </p>
 
 ---
 
+<!--
 <p align="center"> 
     <img src="https://github-profile-trophy.vercel.app/?username=DrReMain" alt="DrReMain" />
 </p>
@@ -168,3 +169,5 @@
 0100 1000 | 0110 0101 | 0110 1100 | 0110 1100 | 0110 1111 | 0010 0000 | 0101 0111 | 0110 1111 | 0111 0010 | 0110 1100 | 0110 0100 | 0010 0001
 
 ![](README/Bottom_down.svg)
+
+-->
